@@ -31,8 +31,10 @@
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-4">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span>
-          <input type="text" pInputText name="emEstoque" [(ngModel)]="produtos.emEstoque" placeholder="Status do Produto">       
+          <span class="ui-inputgroup-addon" style="margin-right: 15px"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span>          
+          <p-radioButton label="Em estoque" name="emEstoque" value="true" [(ngModel)]="produtos.emEstoque"></p-radioButton>
+          <br>
+          <p-radioButton label="Sem estoque" name="emEstoque" value="false" [(ngModel)]="produtos.emEstoque"></p-radioButton>     
         </div>
       </div>
     </div>

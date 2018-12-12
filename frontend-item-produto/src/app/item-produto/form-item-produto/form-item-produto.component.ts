@@ -5,7 +5,6 @@ import { ProdutoService } from '../../shared/service/produto.service';
 import { FormControl } from '@angular/forms';
 
 import {MessageService} from 'primeng/api';
-import { DISABLED } from '../../../../node_modules/@angular/forms/src/model';
 
 @Component({
   selector: 'app-form-item-produto',
@@ -40,7 +39,7 @@ export class FormItemProdutoComponent implements OnInit {
     .subscribe(dados => {
       this.MessageToastService.msgAddProduto()
       frm.reset()
-      // location.reload()
+      location.reload()
     })
   }
 
@@ -57,7 +56,7 @@ export class FormItemProdutoComponent implements OnInit {
     .subscribe(dados => {
       this.MessageToastService.msgUpdateProduto()
       frm.reset()
-      // location.reload()
+      location.reload()
     })
   }  
 }

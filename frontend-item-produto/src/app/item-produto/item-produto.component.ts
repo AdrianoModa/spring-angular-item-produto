@@ -31,15 +31,14 @@ export class ItemProdutoComponent implements OnInit {
   remover(produto){
     if (confirm('Deseja remover o produto ' + produto.nomeProduto + '?')) {	
       const index = this.produtos.indexOf(produto)
-      this.produtos.splice(index, 1) 
-      this.messageToastService.msgRemoverProduto()
-      this.produtoService.deleteProdutos(produto)      
-        .subscribe(null, 	
-          err => {	
+      this.produtos.splice(index, 1)      
+      this.produtoService.deleteProdutos(produto.id)          
+        .subscribe(() => {	
             this.messageToastService.msgRemoverProdutoErro()
             this.produtos.splice(index, 0, produto)
           }
-      );	
+        )
+      this.messageToastService.msgRemoverProduto()
     }
   }  
 }

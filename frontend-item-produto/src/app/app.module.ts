@@ -10,6 +10,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputMaskModule} from 'primeng/inputmask';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 import { AppComponent } from './app.component';
 import { ItemProdutoComponent } from './item-produto/item-produto.component';
@@ -33,7 +34,8 @@ import { MessageService } from '../../node_modules/primeng/api';
     InputTextModule,
     InputMaskModule,
     TableModule,
-    ToastModule
+    ToastModule,
+    RadioButtonModule
   ],
   providers: [ProdutoService, MessageService, MessageToastService],
   bootstrap: [AppComponent]
