@@ -17,12 +17,14 @@ import { ItemProdutoComponent } from './item-produto/item-produto.component';
 import { FormItemProdutoComponent } from './item-produto/form-item-produto/form-item-produto.component';
 import { MessageToastService } from './shared/service/message-toast.service';
 import { MessageService } from '../../node_modules/primeng/api';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ItemProdutoComponent,
-    FormItemProdutoComponent
+    FormItemProdutoComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
