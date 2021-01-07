@@ -36,7 +36,7 @@ public class ProdutoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> listarPorId(@PathVariable Long id){
 		Produto produto = produtoRepository.findById(id).get();
-		Optional.ofNullable(produto).orElseThrow(() -> new RestClientException("O livro não existe"));		
+		Optional.ofNullable(produto).orElseThrow(() -> new RestClientException("O produto não existe"));		
 		return ResponseEntity.status(200).body(produto);
 	}
 
@@ -48,7 +48,7 @@ public class ProdutoController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> atualizar(@PathVariable Long id, @Validated @RequestBody Produto produto){
 		Produto produtoExistente = produtoRepository.findById(id).get();
-		Optional.ofNullable(produtoExistente).orElseThrow(() -> new RestClientException("O livro não existe"));
+		Optional.ofNullable(produtoExistente).orElseThrow(() -> new RestClientException("O produto não existe"));
 		BeanUtils.copyProperties(produto, produtoExistente, "id");
 		produto = produtoRepository.save(produtoExistente);
 		return ResponseEntity.status(HttpStatus.OK).body("O Produto foi atualizado com sucesso!");
@@ -57,8 +57,8 @@ public class ProdutoController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> remover(@PathVariable Long id, Produto produto){
 		Produto produtoExistente = produtoRepository.findById(id).get();
-		Optional.ofNullable(produtoExistente).orElseThrow(() -> new RestClientException("Impossível deletar! O livro não existe"));
+		Optional.ofNullable(produtoExistente).orElseThrow(() -> new RestClientException("Impossível deletar! O produto não existe"));
 		produtoRepository.deleteById(produto.getId());
-		return ResponseEntity.status(HttpStatus.valueOf(200)).body("O livro foi removido com sucesso");
+		return ResponseEntity.status(HttpStatus.valueOf(200)).body("O produto foi removido com sucesso!");
 	}
 }
