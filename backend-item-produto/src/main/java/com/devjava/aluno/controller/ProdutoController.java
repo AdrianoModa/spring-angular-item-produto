@@ -2,13 +2,11 @@ package com.devjava.aluno.controller;
 
 import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +22,7 @@ import com.devjava.aluno.repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/produto")
-@CrossOrigin("${origem-permitida}")
+@CrossOrigin
 public class ProdutoController {
 
 	@Autowired
@@ -37,7 +35,7 @@ public class ProdutoController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> listarPorId(@PathVariable Long id){
-		Produto produto = produtoRepository.findOne(id);
+		Produto produto = produtoRepository.findById(id).get();
 		Optional.ofNullable(produto).orElseThrow(() -> new RestClientException("O livro não existe"));		
 		return ResponseEntity.status(200).body(produto);
 	}
@@ -48,8 +46,8 @@ public class ProdutoController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody Produto produto){
-		Produto produtoExistente = produtoRepository.findOne(id);
+	public ResponseEntity<?> atualizar(@PathVariable Long id, @Validated @RequestBody Produto produto){
+		Produto produtoExistente = produtoRepository.findById(id).get();
 		Optional.ofNullable(produtoExistente).orElseThrow(() -> new RestClientException("O livro não existe"));
 		BeanUtils.copyProperties(produto, produtoExistente, "id");
 		produto = produtoRepository.save(produtoExistente);
@@ -58,9 +56,9 @@ public class ProdutoController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> remover(@PathVariable Long id, Produto produto){
-		Produto produtoExistente = produtoRepository.findOne(id);
+		Produto produtoExistente = produtoRepository.findById(id).get();
 		Optional.ofNullable(produtoExistente).orElseThrow(() -> new RestClientException("Impossível deletar! O livro não existe"));
-		produtoRepository.delete(produto.getId());
+		produtoRepository.deleteById(produto.getId());
 		return ResponseEntity.status(HttpStatus.valueOf(200)).body("O livro foi removido com sucesso");
 	}
 }
