@@ -6,55 +6,41 @@ export class MessageToastService {
 
   constructor(private messageService: MessageService) { }
 
-  timeLife = 3000
+  /**
+   * @param severity Tipo da mensagem devido sua prioridade `success` `info` `warn` `error`.
+   * @param summary Titulo da caixa de mensagem.
+   * @param detail Mensagem no corpo da caixa de mensagem.
+   * @param life Tempo que a caixa de mensagem fica sendo exibida.
+   */
 
-  msgAddProduto() { 
-    this.messageService.add({
-      severity:'success', 
-      summary: 'O Produto foi cadastrado com sucesso!', 
-      detail:'Cadastrar de Produto',
-      life: this.timeLife
-    });
+  entregaMensagem = (tipoMensagem: string, mensagem: string, titulo: string, tempoExibicao: number) => {
+    const messageServicePorperties = {
+      severity: tipoMensagem,
+      summary: mensagem,
+      detail: titulo,
+      life: tempoExibicao
+    }
+    this.messageService.add(messageServicePorperties)
   }
 
-  msgUpdateProduto() { 
-    this.messageService.add({
-      severity:'success', 
-      summary: 'O Produto foi atualizado com sucesso!', 
-      detail:'Atualizar de Produto', 
-      closable: true,
-      life: this.timeLife
-    });
+  mensagemSuccess(mensagem: string, titulo: string, tempoExibicao: number) {
+    return this.entregaMensagem('success', mensagem, titulo, tempoExibicao)
   }
 
-  msgRemoverProduto() { 
-    this.messageService.add({
-      severity:'success', 
-      summary: 'O Produto foi removido com sucesso!', 
-      detail:'Remover de Produto', 
-      closable:true,
-      life: this.timeLife
-    });
+  mensagemInfo(mensagem: string, titulo: string, tempoExibicao: number) {
+    return this.entregaMensagem('info', mensagem, titulo, tempoExibicao)
   }
 
-  msgRemoverProdutoErro() { 
-    this.messageService.add({
-      severity:'error', 
-      summary: 'O Produto não foi removido', 
-      detail:'Remover de Produto',
-      life: this.timeLife
-    });
+  mensagemErro(mensagem: string, titulo: string, tempoExibicao: number) {
+    return this.entregaMensagem('error', mensagem, titulo, tempoExibicao)
   }
 
-  msgConfirm(){
-    this.messageService.clear();
-    this.messageService.add({
-      sticky: true, 
-      severity:'warn', 
-      summary:'Deseja remover o produto ?', 
-      detail:'Remover Produto',
-      life: this.timeLife
-  });
+  mensagemAviso(mensagem: string, titulo: string, tempoExibicao: number) {
+    return this.entregaMensagem('warn', mensagem, titulo, tempoExibicao)
+  }
+
+  msgConfirm(tipoMensagem: string, mensagem: string, titulo: string, tempoExibicao: number) {
+    return this.entregaMensagem(tipoMensagem, mensagem, titulo, tempoExibicao)
   }
 
 }

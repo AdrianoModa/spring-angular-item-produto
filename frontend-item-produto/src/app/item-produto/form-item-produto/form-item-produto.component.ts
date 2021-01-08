@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProdutoService } from '../../shared/service/produto.service';
 import { FormControl } from '@angular/forms';
 
-import {MessageService} from 'primeng/api';
-
 @Component({
   selector: 'app-form-item-produto',
   templateUrl: './form-item-produto.component.html',
@@ -13,11 +11,10 @@ import {MessageService} from 'primeng/api';
 })
 export class FormItemProdutoComponent implements OnInit {
 
-  produtos: Produto[] = []
+  produtos: any
 
   constructor(private produtoService: ProdutoService, 
-    private messageService: MessageService,
-    private MessageToastService: MessageToastService
+    private messageToastService: MessageToastService
   ) { }
 
   ngOnInit() {
@@ -26,18 +23,19 @@ export class FormItemProdutoComponent implements OnInit {
   
   buscar(){
     this.produtoService.getProdutos()
-    .subscribe(dados => this.produtos = dados)
+    .subscribe(produto => this.produtos = produto)
   }
 
   buscarPorId(frm: FormControl){
     this.produtoService.getProdutosPorId(frm.value)
-    .subscribe(dados => this.produtos = dados)
+    .subscribe(produto => this.produtos = produto)
   }
 
   adicionar(frm: FormControl){
     this.produtoService.postProdutos(frm.value)
-    .subscribe(dados => {
-      this.MessageToastService.msgAddProduto()
+    .subscribe(produto => {
+      this.produtos = produto
+      this.messageToastService.mensagemSuccess('O Produto foi cadastrado com sucesso!', 'Cadastrar Produto', 3000)
       frm.reset()
       location.reload()
     })
@@ -53,8 +51,9 @@ export class FormItemProdutoComponent implements OnInit {
 
   atualizar(frm: FormControl){
     this.produtoService.putProduto(frm.value)
-    .subscribe(dados => {
-      this.MessageToastService.msgUpdateProduto()
+    .subscribe(produto => {
+      this.produtos = produto
+      this.messageToastService.mensagemSuccess('O Produto atualizado com sucesso!', 'Atualizar Produto', 3000)
       frm.reset()
       location.reload()
     })
