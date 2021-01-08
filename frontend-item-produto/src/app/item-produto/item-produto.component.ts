@@ -17,6 +17,7 @@ export class ItemProdutoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.listarProdutos()
   }
 
   listarProdutos(){

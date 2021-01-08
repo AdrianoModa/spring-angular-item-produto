@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment.prod';
 import { Produto } from './../entity/produto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -7,7 +8,7 @@ export class ProdutoService {
 
   constructor(private httpCliente: HttpClient) { }
 
-  produtoURL = 'http://localhost:8080/produto'
+  produtoURL = environment.apiUrl + '/produto'
 
   getProdutos(){
     return this.httpCliente.get<Produto[]>(`${this.produtoURL}`)
