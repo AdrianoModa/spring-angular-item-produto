@@ -1,7 +1,7 @@
 export class Produto {
     id: number
-    nomeProduto: string
-    valorProduto: number
+    nome: string
+    valor: number
     emEstoque: boolean = false
-    serieProduto: string
+    serie: string
 }
