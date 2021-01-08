@@ -28,14 +28,13 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
 	@Column
-	private String nomeProduto;
+	private String nome;
 	@Column
-	private float valorProduto;
+	private float valor;
 	@Column
 	private boolean emEstoque;
 	@Column
-	private String serieProduto;
+	private String serie;
 	
 }
