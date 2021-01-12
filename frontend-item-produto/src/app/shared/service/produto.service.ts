@@ -11,11 +11,11 @@ export class ProdutoService {
   produtoURL = 'http://localhost:8080/produto'
 
   getProdutos(){
-    return this.httpCliente.get<Produto[]>(`${this.produtoURL}`).pipe(take(1))
+    return this.httpCliente.get<any>(`${this.produtoURL}`).pipe(take(1))
   }
 
   getProdutosPorId(id: number) {
-    return this.httpCliente.get<Produto[]>(`${this.produtoURL}/${id}`).pipe(take(1))
+    return this.httpCliente.get<any>(`${this.produtoURL}/${id}`).pipe(take(1))
   }
 
   postProdutos(produto: any){

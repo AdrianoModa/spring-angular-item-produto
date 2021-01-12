@@ -12,7 +12,7 @@ import { MessageService } from 'primeng/api';
 })
 export class ItemProdutoComponent implements OnInit {
 
-  produtos: Produto[] = []
+  produtos: any
 
   constructor(private produtoService: ProdutoService, 
     private messageService: MessageService,
