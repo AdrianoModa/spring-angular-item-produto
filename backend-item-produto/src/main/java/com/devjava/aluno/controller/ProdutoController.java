@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.devjava.aluno.model.Produto;
 import com.devjava.aluno.service.ProdutoService;
@@ -26,29 +27,34 @@ public class ProdutoController {
 	private ProdutoService produtoService;
 
 	@GetMapping
-	public List<Produto> listarTodos(){
-		return produtoService.buscarTodos();
+	@ResponseStatus(code = HttpStatus.OK)
+	public ResponseEntity<List<Produto>> listarTodos(){
+		return ResponseEntity.status(200).body(produtoService.buscarTodos());
 	}
 
 	@GetMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<?> listarPorId(@PathVariable Long id){
 		return ResponseEntity.status(200).body(produtoService.buscarPorId(id));
 	}
 
 	@PostMapping
-	public Produto adicionar(@RequestBody @Validated Produto produto){
-		return produtoService.inserir(produto);
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public ResponseEntity<Produto> adicionar(@RequestBody @Validated Produto produto){
+		return new ResponseEntity<Produto>(produtoService.inserir(produto), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<?> atualizar(@PathVariable Long id, @Validated @RequestBody Produto produto){
 		produto.setId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(produtoService.atualizar(produto));
 	}
 
 	@DeleteMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public ResponseEntity<?> remover(@PathVariable Long id, Produto produto){
 		produtoService.remover(produto);
-		return ResponseEntity.status(HttpStatus.valueOf(200)).body("O produto foi removido com sucesso!");
+		return ResponseEntity.status(HttpStatus.valueOf(204)).body("O produto foi removido com sucesso!");
 	}
 }
